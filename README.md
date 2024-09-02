@@ -33,13 +33,21 @@ Prerequisites
 
 ## Setup And Installation
 **1. Clone the repository:**
+
 ...
   git clone <https://github.com/sanzamcmillian/Quiz_Web_App>
 ...
+
 **2. Install dependencies:**
+
+...
    npm install or
    yarn install
+...
+
 **Set up the virtual environment with the following commands:**
+
+...
 1. Python -m venv qui_venv
    #create it
 2. To create it run the following command "source quiz_venv/bin/activate #" for Mac or Linux `quiz_venv\Scripts\activate.
@@ -50,7 +58,7 @@ pip install django
 Now  for creating the project using Django:
 django-admin start project quiz_web_app
 a directory will be created called `quiz_web_app` with configurations and dependencies for the web app.
-
+...
 
 
  For this project we used a Django framework
