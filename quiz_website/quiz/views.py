@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 # music/views.py
-from music.models import Album
+from quiz.models import Album
 
 
 def home(request):
