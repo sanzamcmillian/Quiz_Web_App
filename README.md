@@ -32,14 +32,12 @@ Prerequisites
 . ETC..
 
 ## Setup And Installation
-1. Clone the repository:
-...
+**1. Clone the repository:**
   git clone <https://github.com/sanzamcmillian/Quiz_Web_App>
-...
-3. Install dependencies:
+**2. Install dependencies:**
    npm install or
    yarn install
-Set up the virtual environment with the following commands:
+**Set up the virtual environment with the following commands:**
 1. Python -m venv qui_venv
    #create it
 2. To create it run the following command "source quiz_venv/bin/activate #" for Mac or Linux `quiz_venv\Scripts\activate.
