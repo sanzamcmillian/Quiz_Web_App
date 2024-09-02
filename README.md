@@ -33,7 +33,9 @@ Prerequisites
 
 ## Setup And Installation
 **1. Clone the repository:**
+...
   git clone <https://github.com/sanzamcmillian/Quiz_Web_App>
+...
 **2. Install dependencies:**
    npm install or
    yarn install
