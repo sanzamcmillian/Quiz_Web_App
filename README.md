@@ -59,10 +59,8 @@ Confetti: For celebrating high scores.
 
 **2. Install dependencies:**
 
-...
    npm install or
    yarn install
-...
 
 **Set up the virtual environment with the following commands:**
 
