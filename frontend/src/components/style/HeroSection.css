@@ -1,0 +1,23 @@
+.hero-section {
+    background-color: #f4f6f8;
+    padding: 60px 0;
+    text-align: center;
+    color: #333;
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  .hero-section h1 {
+    color: #f76c6c;
+    font-weight: bold;
+  }
+  
+  .hero-section p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
