@@ -13,7 +13,12 @@ def test_view(request):
 
 def home_view(request):
     # In this case, you might dynamically generate a list of quiz categories or topics
-    categories = ["General Knowledge", "Science", "History"]
+    categories = [
+        "General Knowledge", "Science",
+        "History", "Entertainment", "Mythology",
+        "Sports", "Celebrities", "Animals",
+        "Vehicles", "Politics"
+    ]
     return render(request, 'home.html', {'categories': categories})
 
 
@@ -24,16 +29,9 @@ def quiz_detail_view(request, category):
 
 def quiz_view(request, category):
     """fetch quiz questions from external API"""
-    if request.method == 'POST':
-        form = QuizForm(request.POST)
-        if form.is_valid():
-            score = form.calculate_score()
-            return redirect('quiz:result', score=score)
-    else:
-        questions = get_questions(category=category)
-        form = QuizForm(questions=questions)
-    
-    return render(request, 'quiz_view.html', {'form': form, 'category': category})
+    questions = get_questions(num_questions=5)
+    context = {'questions': questions}
+    return render(request, 'quiz_view.html', context)
 
 
 def result_view(request, score):
