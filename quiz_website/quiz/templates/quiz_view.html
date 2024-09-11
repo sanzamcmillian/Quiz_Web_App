@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: {{ category }}</title>
+</head>
+<body>
+    <h1>Quiz: {{ category }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Displaying questions fetched from the external API -->
+        {% for question in questions %}
+            <div>
+                <h3>{{ question.question }}</h3>
+                {% for option in question.options %}
+                    <label>
+                        <input type="radio" name="question_{{ forloop.counter }}" value="{{ option }}">
+                        {{ option }}
+                    </label><br>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        
+        <!-- Submit button for the quiz -->
+        <button type="submit">Submit Quiz</button>
+    </form>
+</body>
+</html>

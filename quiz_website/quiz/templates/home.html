@@ -1,16 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+            color: #666;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
- <h1>Welcome to My Website</h1>
- <ul>
- {% for Album in Albums %}
- <li>{{ Album.name }} - {{ Album.artist }} - {{ Album.release_date }}</li>
- {% endfor %}
- </ul>
+
+<div class="container">
+    <h1>Welcome to the Quiz App!</h1>
+    <p>Select a quiz category to get started:</p>
+    
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'quiz_view' category %}" class="btn">{{ category }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
 </body>
 </html>

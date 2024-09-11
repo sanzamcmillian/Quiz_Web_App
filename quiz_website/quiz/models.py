@@ -9,3 +9,12 @@ class User_Messages(models.Model):
     message = models.TextField()
     def __str__(self):
         return self.subject
+
+   
+class Quiz(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    # Add other fields as necessary
+
+    def __str__(self):
+        return self.title
