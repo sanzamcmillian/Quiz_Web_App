@@ -1,27 +1,41 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from .services import get_questions
+from .forms import QuizForm
 # Create your views here.
-# music/views.py
-from quiz.models import Album
+#request -> response
+# quiz/views.py
+from quiz.models import Quiz
+from django.http import HttpResponse
 
 
-def home(request):
- Albums = Album.objects.all()
- return render(request, 'home.html', {'Albums': Albums})
-def about(request):
- return render(request, 'about.html')
-# Define other views (e.g., contact, product) similarly
-from .models import User_Messages
-def contact(request):
-    success = False
+def test_view(request):
+    return HttpResponse("Test view works!")
+
+def home_view(request):
+    # In this case, you might dynamically generate a list of quiz categories or topics
+    categories = ["General Knowledge", "Science", "History"]
+    return render(request, 'home.html', {'categories': categories})
+
+
+def quiz_detail_view(request, category):
+    # Display details about the quiz and a start button
+    return render(request, 'quiz_detail.html', {'category': category})
+
+
+def quiz_view(request, category):
+    """fetch quiz questions from external API"""
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        subject = request.POST.get('subject')
-        message = request.POST.get('message')
-        
-        # Create and save a new instance of User_Messages
-        user_message = User_Messages(name=name, email=email, subject=subject, message=message)
-        user_message.save()
-        success = True
-    return render(request, 'contact.html', {'success': success})
+        form = QuizForm(request.POST)
+        if form.is_valid():
+            score = form.calculate_score()
+            return redirect('quiz:result', score=score)
+    else:
+        questions = get_questions(category=category)
+        form = QuizForm(questions=questions)
+    
+    return render(request, 'quiz_view.html', {'form': form, 'category': category})
+
+
+def result_view(request, score):
+    # Display the user's score and correct answers
+    return render(request, 'result.html', {'score': score})
