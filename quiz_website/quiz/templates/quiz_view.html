@@ -1,11 +1,82 @@
-{% for question in questions %}
-  <div>
-    <h3>{{ question.question }}</h3>
-    <ul>
-      {% for answer in question.incorrect_answers %}
-        <li>{{ answer }}</li>
-      {% endfor %}
-      <li>{{ question.correct_answer }}</li>
-    </ul>
-  </div>
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'quiz/quiz_style.css' %}">
+</head>
+<body>
+    <div class="quiz-container">
+        <h2 class="quiz-title">Quiz: {{ category }}</h2>
+        
+        <!-- Timer -->
+        <div class="timer">
+            Time Left: <span id="timer">30s</span>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        </div>
+
+        <!-- Quiz Form -->
+        <form method="post">
+            {% csrf_token %}
+            {% for question in questions %}
+            <div class="question-block">
+                <h3 class="question">{{ question.question|safe }}</h3>
+                <ul class="options">
+                    {% for answer in question.incorrect_answers %}
+                    <li>
+                        <label>
+                            <input type="radio" name="question_{{ forloop.counter }}" value="{{ answer }}">
+                            {{ answer|safe }}
+                        </label>
+                    </li>
+                    {% endfor %}
+                    <li>
+                        <label>
+                            <input type="radio" name="question_{{ forloop.counter }}" value="{{ question.correct_answer }}">
+                            {{ question.correct_answer|safe }}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">Submit Answers</button>
+        </form>
+    </div>
+
+    <!-- JavaScript for Timer and Progress Bar -->
+    <script>
+        // Timer
+        let timeLeft = 30;
+        const timerEl = document.getElementById('timer');
+        const countdown = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                alert('Time is up!');
+                document.forms[0].submit();  // Auto-submit when time is up
+            }
+            timerEl.textContent = `${timeLeft}s`;
+            timeLeft--;
+        }, 1000);
+
+        // Progress Bar
+        const progressBarFill = document.getElementById('progress-bar-fill');
+        let questionsCount = {{ questions|length }};
+        let currentQuestionIndex = 1; // Initialize to the first question
+        progressBarFill.style.width = `${(currentQuestionIndex / questionsCount) * 100}%`;
+
+        // Update progress bar based on question progression (this can be handled more dynamically in the backend)
+        document.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.addEventListener('change', () => {
+                currentQuestionIndex++;
+                progressBarFill.style.width = `${(currentQuestionIndex / questionsCount) * 100}%`;
+            });
+        });
+    </script>
+</body>
+</html>
