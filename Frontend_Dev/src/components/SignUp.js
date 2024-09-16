@@ -1,4 +1,3 @@
-// src/components/SignUp.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style/Login.css'; // Ensure path is correct
@@ -13,7 +12,19 @@ const SignUp = () => {
 
   const handleRegister = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      // Replace with your Django registration API endpoint
+      const response = await fetch('/api/register/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, surname, email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Registration failed');
+      }
+
       navigate('/login'); // Redirect to login page after successful registration
     } catch (error) {
       setError(error.message); // Set error message

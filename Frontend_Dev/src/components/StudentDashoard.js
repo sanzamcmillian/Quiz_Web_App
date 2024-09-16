@@ -1,7 +1,7 @@
 // src/components/StudentDashboard.js
 import React, { useState, useEffect, useContext } from 'react';
 import { Line } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
+import { AuthContext } from './AuthContext';
 import './style/StudentDashboard.css';
 
 const mockData = [
@@ -20,7 +20,7 @@ const mockData = [
 ];
 
 const StudentDashboard = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext); 
   const [quizResults, setQuizResults] = useState([]);
 
   useEffect(() => {

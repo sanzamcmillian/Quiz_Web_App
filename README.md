@@ -6,7 +6,7 @@ Description
 The Quiz Web App is an interactive quiz application designed to provide a fun and engaging way to test knowledge on various topics. It features a timed quiz with multiple-choice questions fetched from the Open Trivia Database. Users can start the quiz, answer questions, and see their results with interactive feedback.
 
 **Features**
-Timed quiz with 20-second intervals per question
+Timed quiz with 60-second intervals per question
 ...
 Multiple-choice questions with random answer order
 ...

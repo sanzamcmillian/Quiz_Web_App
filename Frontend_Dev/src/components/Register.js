@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './style/Register.css'; // Use a new CSS file for styling
+import { register } from './Api'; // Import the register function from Api.js
+import './style/Register.css'; // Import the CSS file
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -15,6 +16,17 @@ const Register = () => {
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
+    }
+
+    try {
+      const response = await register({ name, surname, email, password });
+      if (response.status === 201) { // Assuming success status code is 201
+        navigate('/login'); // Redirect to login page after successful registration
+      } else {
+        setError('Failed to register');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
     }
   };
 

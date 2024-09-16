@@ -1,14 +1,9 @@
-# website/urls.py
-
-
 from django.contrib import admin
 from django.urls import path, include
-from quiz.views import *
-from django.conf import settings
-from django.conf.urls.static import static
+from quiz import views  # Import the views from the quiz app if necessary
 
 urlpatterns = [
- path('admin/', admin.site.urls),
- path('hello/', include('quiz.urls')),
- # Add URLs for other views here
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('admin/', admin.site.urls),
+    path('quiz/', include('quiz.urls')),  # Include all quiz-related URLs
+    path('', views.home_view, name='home'),  # Your home view from quiz.views
+]

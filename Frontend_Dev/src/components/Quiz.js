@@ -1,14 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Confetti from 'react-confetti'; // For confetti animation
 import './style/Quiz.css'; // Import the CSS file
+import { AuthContext } from './AuthContext';
+import { useNavigate } from 'react-router-dom';
 import {  fetchQuestions, submitQuiz } from './Api';
 
 const Quiz = ({ category }) => {
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
     const [score, setScore] = useState(null);
 
     useEffect(() => {
+        if (!user) {
+            navigate('/login'); // Redirect to login if user is not authenticated
+            return;
+        }
+
         const getQuestions = async () => {
             try {
                 const data = await fetchQuestions(category);
@@ -18,7 +28,7 @@ const Quiz = ({ category }) => {
             }
         };
         getQuestions();
-    }, [category]);
+    }, [user, category, navigate]);
 
     const handleAnswerChange = (questionIndex, answer) => {
         setAnswers({

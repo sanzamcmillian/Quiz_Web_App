@@ -7,6 +7,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Feedback from './components/Feedback';
 import Login from './components/Login';
+import ForgotPassword from './components/ForgotPassword';
 import Register from './components/Register';
 import SignUp from './components/SignUp';
 import Quiz from './components/Quiz';
@@ -15,6 +16,7 @@ import Welcome from './components/Welcome';
 import StudentDashboard from './components/StudentDashoard';
 import TeacherDashboard from './components/TeacherDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './components/AuthContext';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -30,6 +32,7 @@ function App() {
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/register" element={<Register />} />
           <Route path="/welcome" element={<Welcome />} />

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Types, Question, Answer
+from .models import Question, Answer, Types
 
 class AnswerAdmin(admin.StackedInline):
     """
@@ -13,7 +13,7 @@ class AnswerAdmin(admin.StackedInline):
 class QuestionAdmin(admin.ModelAdmin):
     """
     Admin class for the Question model.
-
+    
     This class customizes the admin interface for Question, adding an inline
     for related Answer instances, search fields, list display, and filters.
     
@@ -31,7 +31,7 @@ class QuestionAdmin(admin.ModelAdmin):
 class TypesAdmin(admin.ModelAdmin):
     """
     Admin class for the Types model.
-
+    
     This class customizes the admin interface for Types by adding search fields and list display.
     
     Attributes:
@@ -44,7 +44,7 @@ class TypesAdmin(admin.ModelAdmin):
 class AnswerModelAdmin(admin.ModelAdmin):
     """
     Admin class for the Answer model.
-
+    
     This class customizes the admin interface for Answer, adding search fields, list display, and filters.
     
     Attributes:
@@ -54,7 +54,7 @@ class AnswerModelAdmin(admin.ModelAdmin):
     """
     list_display = ('answer_text', 'is_correct', 'question', 'created_at')  # Fields shown in the list view
     search_fields = ('answer_text', 'question__question_text')  # Enable search by answer text and question text
-    list_filter = ('is_correct', 'question__quiz', 'created_at')  # Enable filters for answer correctness and related quiz
+    list_filter = ('is_correct', 'question__question_type', 'created_at')  # Enable filters for answer correctness and related question type
 
 # Register the models with the customized admin configurations
 admin.site.register(Types, TypesAdmin)

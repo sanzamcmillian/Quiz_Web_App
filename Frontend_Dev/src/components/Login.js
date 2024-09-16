@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ForgotPassword from './ForgotPassword';
+import { login } from './Api'; // Import the login function from Api.js
 import './style/Login.css'; // Import the CSS file
 
 const Login = () => {
@@ -10,21 +12,16 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/login/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
+      const response = await login({ email, password });
       
-      if (response.ok) {
-        // Save user token or data in localStorage or context
-        localStorage.setItem('token', data.token); // Example with JWT token
-        navigate('/dashboard');
+      // Assuming the response data contains the token
+      const { token } = response.data;
+      if (token) {
+        // Save user token in localStorage
+        localStorage.setItem('token', token);
+        navigate('/dashboard'); // Navigate to the dashboard on successful login
       } else {
-        setError(data.message || 'Failed to log in');
+        setError('Failed to log in');
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
@@ -53,12 +50,16 @@ const Login = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <button type="submit">Login</button>
           {error && <p>{error}</p>}
         </form>
         <p>
-          Don't have an account? <a href="/register">Register here</a>
+         Forgot your password? <a href="/forgot-password">Reset it here</a>
+        </p>
+        <p>
+        Don't have an account? <a href="/register">Register here</a>
         </p>
       </div>
     </div>
