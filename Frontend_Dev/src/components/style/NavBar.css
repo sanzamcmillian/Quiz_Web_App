@@ -1,0 +1,35 @@
+/* style/NavBar.css */
+.navbar {
+    background-color: #ffffff; /* White background for a clean look */
+    border-bottom: 1px solid #e0e0e0; /* Subtle border for separation */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem; /* Larger font size for branding */
+    font-weight: bold; /* Bold text for emphasis */
+    color: #333333; /* Darker text color for better readability */
+  }
+  
+  .navbar-toggler {
+    border: none; /* Remove border for a cleaner look */
+  }
+  
+  .nav-link {
+    color: #555555; /* Slightly lighter text color */
+    transition: color 0.3s ease; /* Smooth transition for hover effects */
+  }
+  
+  .nav-link:hover {
+    color: #007bff; /* Change color on hover */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  .nav-link.btn-link {
+    color: #007bff; /* Use primary color for sign out button */
+  }
+  
+  .nav-link.btn-link:hover {
+    text-decoration: underline; /* Add underline on hover */
+  }
+  
