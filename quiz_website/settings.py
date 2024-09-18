@@ -26,5 +26,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'quiz' #add this
     'corsheaders',
+    'rest_framework',
 
 ]
