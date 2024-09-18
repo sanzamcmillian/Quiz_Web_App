@@ -50,9 +50,6 @@ def logout_view(request):
     logout(request)
     return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
 
-def test_view(request):
-    return HttpResponse("Test view works!")
-
 def home_view(request):
     # List of quiz categories or topics
     categories = [
