@@ -2,7 +2,7 @@ import pytest
 from django.urls import reverse
 from rest_framework import status
 
-from users.models import *
+from quiz.models import *
 
 
 @pytest.mark.django_db
@@ -18,9 +18,9 @@ def test_user_flow(client):
         "password": "Nandipha12345",
     }
 
-    registration_response = client.post("/auth/users/", siba_registration_data)
+    registration_response = client.post("/api/register/", siba_registration_data)
     print(registration_response.data)
 
-    login_response = client.post("/account/login/", siba_login_data)
+    login_response = client.post("/api/login/", siba_login_data)
 
     print(login_response.data)

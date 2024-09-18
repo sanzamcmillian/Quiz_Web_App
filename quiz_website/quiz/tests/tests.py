@@ -1,6 +1,6 @@
 from django.test import TestCase
 from unittest.mock import patch
-from ..services import get_questions
+from quiz.services import get_questions
 # Create your tests here.
 
 
