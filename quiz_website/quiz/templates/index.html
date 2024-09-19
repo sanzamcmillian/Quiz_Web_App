@@ -4,37 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Web App - Home</title>
-    <link rel="stylesheet">
+    <!-- Load static template tag library -->
+    {% load static %}
+
+    <!-- Bootstrap CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Optionally: Add a Bootstrap Theme (Example: Bootswatch Lux Theme) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Tailwind CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="{% static 'quiz_style.css' %}">
+
+    <!-- Darkly Theme from Bootswatch -->
+<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css" rel="stylesheet">
+
 </head>
-<body>
-    <header>
-        <h1>Welcome to the Quiz Web App</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="bg-light">
+    <div class="container">
+        <header class="text-center py-5 bg-primary text-white">
+            <h1 class="display-4">Welcome to the Quiz Web App</h1>
+            <nav class="mt-4">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'register' %}">Register</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
-    <main>
-        <section>
-            <h2>About the Quiz Web App</h2>
-            <p>This web app lets you test your knowledge on various topics through quizzes. To access the quizzes, you must first create an account and log in. Each quiz is timed and includes multiple categories such as General Knowledge, Science, History, and more.</p>
-        </section>
+        <main class="my-5">
+            <section class="text-center mb-5">
+                <h2 class="text-info mb-4">About the Quiz Web App</h2>
+                <p class="lead">This web app lets you test your knowledge on various topics through quizzes. To access the quizzes, you must first create an account and log in. Each quiz is timed and includes multiple categories such as General Knowledge, Science, History, and more.</p>
+            </section>
 
-        <section>
-            <h2>How to Get Started</h2>
-            <ol>
-                <li><a href="{% url 'register' %}">Register</a> for a new account.</li>
-                <li>Once registered, <a href="{% url 'login' %}">log in</a> with your credentials.</li>
-                <li>After logging in, you will be able to select quiz categories and start the quizzes.</li>
-            </ol>
-        </section>
-    </main>
+            <section class="text-center">
+                <h2 class="text-info mb-4">How to Get Started</h2>
+                <ol class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="{% url 'register' %}" class="text-primary">Register</a> for a new account.
+                    </li>
+                    <li class="list-group-item">
+                        Once registered, <a href="{% url 'login' %}" class="text-primary">log in</a> with your credentials.
+                    </li>
+                    <li class="list-group-item">
+                        After logging in, you will be able to select quiz categories and start the quizzes.
+                    </li>
+                </ol>
+            </section>
+        </main>
 
-    <footer>
-        <p>&copy; 2024 Quiz Web App. All rights reserved.</p>
-    </footer>
+        <footer class="bg-dark text-white text-center py-3">
+            <p>&copy; 2024 Quiz Web App. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

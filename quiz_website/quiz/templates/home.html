@@ -1,110 +1,45 @@
+<!-- home.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Home</title>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #fff;
-        }
-        .container {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 50px;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            transition: transform 0.3s ease-in-out;
-        }
-        .container:hover {
-            transform: scale(1.05);
-        }
-        h1 {
-            color: #333;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 20px;
-        }
-        .start-btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background-color: #ff5e57;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        .start-btn:hover {
-            background-color: #ff3d3d;
-        }
-        .category-selection {
-            display: none;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 30px 0;
-        }
-        li {
-            margin: 10px 0;
-        }
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
-    <script>
-        function startQuiz() {
-            document.querySelector('.start-btn').style.display = 'none';
-            document.querySelector('.category-selection').style.display = 'block';
-        }
-    </script>
+    <title>Quiz Web App - Home</title>
+    <link rel="stylesheet" href="{% static 'quiz_style.css' %}">
 </head>
 <body>
 
-<div class="container">
-    <h1>Welcome to QuizApp!</h1>
-    <p>Test your knowledge across a variety of topics. Are you ready to challenge yourself?</p>
-    
-    <!-- Start Button -->
-    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
-    
-    <!-- Quiz Category Selection (Initially Hidden) -->
-    <div class="category-selection">
-        <h2>Select a Category</h2>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to the Quiz Web App</h1>
+        </div>
+
         <ul>
-            {% for category in categories %}
-                <li><a href="{% url 'quiz_view' category %}" class="btn">{{ category }}</a></li>
-            {% endfor %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
         </ul>
+
+        <div class="content">
+            <h2>About the Quiz Web App</h2>
+            <p>
+                This web app lets you test your knowledge on various topics through quizzes. To access the quizzes, you must first create an account and log in. Each quiz is timed and includes multiple categories such as General Knowledge, Science, History, and more.
+            </p>
+
+            <h2>How to Get Started</h2>
+            <p>
+                <ol>
+                    <li><a href="{% url 'register' %}">Register</a> for a new account.</li>
+                    <li>Once registered, <a href="{% url 'login' %}">log in</a> with your credentials.</li>
+                    <li>After logging in, you will be able to select quiz categories and start the quizzes.</li>
+                </ol>
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 Quiz Web App. All rights reserved.</p>
+        </div>
     </div>
-</div>
 
 </body>
 </html>
