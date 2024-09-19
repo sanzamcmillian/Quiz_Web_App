@@ -1,6 +1,5 @@
 # models.py
 from django.db import models
-from django.conf import settings  # Import to reference the custom user model
 from users.models import CustomUser
 
 class QuizResult(models.Model):
