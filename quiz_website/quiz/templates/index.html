@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Web App - Home</title>
+    <link rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Quiz Web App</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>About the Quiz Web App</h2>
+            <p>This web app lets you test your knowledge on various topics through quizzes. To access the quizzes, you must first create an account and log in. Each quiz is timed and includes multiple categories such as General Knowledge, Science, History, and more.</p>
+        </section>
+
+        <section>
+            <h2>How to Get Started</h2>
+            <ol>
+                <li><a href="{% url 'register' %}">Register</a> for a new account.</li>
+                <li>Once registered, <a href="{% url 'login' %}">log in</a> with your credentials.</li>
+                <li>After logging in, you will be able to select quiz categories and start the quizzes.</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Quiz Web App. All rights reserved.</p>
+    </footer>
+</body>
+</html>
