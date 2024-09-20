@@ -21,7 +21,7 @@ def logout_view(request):
     return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
 
 
-"""
+
 def home_view(request):
     # List of quiz categories or topics
     categories = [
@@ -31,7 +31,7 @@ def home_view(request):
         "Vehicles", "Politics"
     ]
     return render(request, 'home.html', {'categories': categories})
-"""
+
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -44,7 +44,7 @@ def login_view(request):
                 return redirect('home')
     else:
         form = AuthenticationForm()
-    
+
     return render(request, 'login.html', {'form': form})
 
 
@@ -58,7 +58,7 @@ def register_view(request):
             return redirect('home')
     else:
         form = UserCreationForm()
-    
+
     return render(request, 'register.html', {'form': form})
 
 
@@ -73,7 +73,7 @@ def quiz_detail_view(request, category):
 def quiz_view(request, category):
     """Fetch quiz questions from an external API and handle form submission"""
     questions = get_questions(num_questions=5)
-    
+
     if request.method == 'POST':
         form = QuizForm(request.POST, questions=questions)
         if form.is_valid():
@@ -82,7 +82,7 @@ def quiz_view(request, category):
             return redirect(f'{reverse("result")}?score={score}')
     else:
         form = QuizForm(questions=questions)
-    
+
     context = {
         'form': form,
         'questions': questions,
@@ -97,5 +97,5 @@ def result_view(request):
             score = int(score)
         except ValueError:
             score = None
-    
+
     return render(request, 'result.html', {'score': score})
