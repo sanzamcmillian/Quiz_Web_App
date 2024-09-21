@@ -12,7 +12,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
-
+from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 
 def logout_view(request):
     """Handle user logout."""
@@ -22,6 +23,7 @@ def logout_view(request):
 
 
 
+@login_required
 def home_view(request):
     # List of quiz categories or topics
     categories = [
@@ -41,7 +43,12 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                print(user)
+                # Redirect to home after successful login
+                return redirect('quiz:quiz_view')
+        else:
+            # Handle the case where form is invalid (incorrect credentials)
+            print("Login failed. Invalid credentials.")
     else:
         form = AuthenticationForm()
 
@@ -62,7 +69,7 @@ def register_view(request):
     return render(request, 'register.html', {'form': form})
 
 
-def home_view(request):
+def index_view(request):
     return render(request, 'index.html')
 
 
@@ -70,9 +77,11 @@ def quiz_detail_view(request, category):
     # Display details about the quiz and a start button
     return render(request, 'quiz_detail.html', {'category': category})
 
-def quiz_view(request, category):
+    
+def quiz_view(request):
     """Fetch quiz questions from an external API and handle form submission"""
     questions = get_questions(num_questions=5)
+
 
     if request.method == 'POST':
         form = QuizForm(request.POST, questions=questions)

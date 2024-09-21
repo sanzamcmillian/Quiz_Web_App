@@ -1,6 +1,6 @@
 """module to handle third party API requests"""
 import requests
-import requests.exceptions
+
 
 
 def get_questions(category=None, difficulty=None, num_questions=10):

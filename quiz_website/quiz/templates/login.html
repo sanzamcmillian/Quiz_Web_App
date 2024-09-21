@@ -24,10 +24,13 @@
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
             <h2 class="card-title text-center mb-4">Login</h2>
-            <form method="POST">
+            <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
                 
-                <!-- Render the form with Bootstrap styling -->
+                <!-- Display non-field errors -->
+                {{ form.non_field_errors }}
+                
                 <div class="form-group">
                     {{ form.username.label_tag }}
                     {{ form.username }}
@@ -51,6 +54,7 @@
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script 
+src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

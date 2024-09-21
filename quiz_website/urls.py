@@ -1,9 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from quiz import views  # Import the views from the quiz app if necessary
+from quiz.views import index_view, LoginView, home_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('quiz/', include('quiz.urls')),  # Include all quiz-related URLs
-    path('', views.home_view, name='home'),  # Your home view from quiz.views
+    path('', index_view, name='index'),  # Index before login
+    path('quiz/', include('quiz.urls', namespace='quiz')),  # Include quiz app URLs
+    path('login/', LoginView.as_view(), name='login'),  # Default login view
+    path('home/', home_view, name='home'),
+
 ]
