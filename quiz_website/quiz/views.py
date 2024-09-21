@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .services import get_questions
 from .forms import QuizForm
+from .models import QuizResult, UserResponse, Leaderboard
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
