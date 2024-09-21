@@ -66,7 +66,10 @@ def logout_view(request):
     """Handle user logout."""
     request.user.auth_token.delete()
     logout(request)
-    return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
+    return Response(
+        {'message': 'Logged out successfully'},
+        status=status.HTTP_200_OK
+        )
 
 
 def quiz_view(request, category):
