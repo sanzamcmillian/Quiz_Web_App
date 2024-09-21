@@ -34,12 +34,6 @@ h1 {
     font-weight: bold;
 }
 
-h2 {
-    color: #2d3e50;
-    margin-bottom: 10px;
-}
-
-/* Navigation styling */
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -62,62 +56,14 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
-/* Form styling */
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-form label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-form input[type="text"],
-form input[type="password"],
-form input[type="email"],
-form input[type="number"],
-form select,
-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-}
-
-form button[type="submit"] {
-    background-color: #1a73e8;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-}
-
-form button[type="submit"]:hover {
-    background-color: #0c57d5;
-}
-
-/* Error messages */
-.errors {
-    background-color: #fdd;
-    border: 1px solid #f00;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-}
-
-.errors p {
-    margin: 0;
-}
-
 /* Main content */
 main {
     margin-top: 20px;
+}
+
+h2 {
+    color: #2d3e50;
+    margin-bottom: 10px;
 }
 
 p, ol {
