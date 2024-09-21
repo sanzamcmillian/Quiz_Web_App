@@ -118,7 +118,7 @@
         </div>
 
         <!-- Quiz Form -->
-        <form method="post">
+        <form method="post" action="{% url 'result' %}">
             {% csrf_token %}
             {% for question in questions %}
             <div class="question-block">

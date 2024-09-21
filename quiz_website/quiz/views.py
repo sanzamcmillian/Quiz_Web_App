@@ -30,7 +30,7 @@ def home_view(request):
         "Sports", "Celebrities", "Animals",
         "Vehicles", "Politics"
     ]
-    return render(request, 'home.html', {'categories': categories})
+    return render(request, 'quiz_detail.html', {'categories': categories})
 
 def login_view(request):
     if request.method == 'POST':
@@ -41,7 +41,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('quiz_detail')
     else:
         form = AuthenticationForm()
 
@@ -55,14 +55,14 @@ def register_view(request):
             user = form.save()
             # Log the user in automatically after registration
             login(request, user)
-            return redirect('home')
+            return redirect('quiz_detail')
     else:
         form = UserCreationForm()
 
     return render(request, 'register.html', {'form': form})
 
 
-def home_view(request):
+def landing_view(request):
     return render(request, 'index.html')
 
 
