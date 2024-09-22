@@ -1,16 +1,32 @@
+<!-- templates/result_view.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Result</title>
     <link rel="stylesheet">
 </head>
 <body>
-    <div class="quiz-container">
-        <h2>Quiz Result</h2>
-        <p>Your score: {{ score }}</p>
-    </div>
-    <button type="submit" class="btn btn-primary">log out</button>
+    <header>
+        <h1>Quiz Result</h1>
+    </header>
+    
+    <main>
+        <section>
+            <h2>{{ quiz_result.quiz_category }}</h2>
+            <p><strong>Score:</strong> {{ quiz_result.score }} / {{ quiz_result.total_questions }}</p>
+            <p><strong>Percentage:</strong> {{ percentage }}%</p>
+            <p><strong>Date Taken:</strong> {{ quiz_result.date_taken }}</p>
+        </section>
+        
+        <section>
+            <a href="{% url 'quiz_detail' %}">Back to Home</a>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Quiz Web App. All rights reserved.</p>
+    </footer>
 </body>
 </html>

@@ -37,3 +37,11 @@ class Leaderboard(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - Rank: {self.rank}, Score: {self.total_score}"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        leaderboard = Leaderboard.objects.order_by('-total_score')
+        for idx, entry in enumerate(leaderboard, start=1):
+            if entry.rank != idx:
+                entry.rank = idx
+                entry.save()

@@ -1,0 +1,44 @@
+<!-- templates/leaderboard_view.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard</title>
+    <link rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Leaderboard</h1>
+    </header>
+    
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>User</th>
+                    <th>Total Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in leaderboard %}
+                    <tr>
+                        <td>{{ entry.rank }}</td>
+                        <td>{{ entry.user.username }}</td>
+                        <td>{{ entry.total_score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <section>
+            <a href="{% url 'quiz_detail' %}">Back to Home</a>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Quiz Web App. All rights reserved.</p>
+    </footer>
+</body>
+</html>
