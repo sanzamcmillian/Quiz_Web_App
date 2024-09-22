@@ -15,6 +15,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
+from django.db import transaction
 
 
 def landing_view(request):
@@ -87,37 +88,33 @@ def quiz_view(request, category):
             total_questions = len(questions)
             user = request.user
 
-            for idx, question in enumerate(questions):
-                selected_option = form.cleaned_data.get(f'question_{idx}')
-                correct_option = question['correct_answer']
-                is_correct = selected_option == correct_option
-                UserResponse.objects.create(
-                    user=user,
-                    question_text=question['question'],
-                    selected_option=selected_option,
-                    correct_option=correct_option,
-                    is_correct=is_correct
-                )
+            with transaction.atomic():
+                for idx, question in enumerate(questions):
+                    selected_option = form.cleaned_data.get(f'question_{idx}')
+                    correct_option = question['correct_answer']
+                    is_correct = selected_option == correct_option
+                    UserResponse.objects.create(
+                        user=user,
+                        question_text=question['question'],
+                        selected_option=selected_option,
+                        correct_option=correct_option,
+                        is_correct=is_correct
+                    )
             
-            quiz_result = QuizResult.objects.create(
-                user=user,
-                score=score,
-                total_questions=total_questions,
-                quiz_category=category,
-                date_taken=timezone.now()
-            )
+                quiz_result = QuizResult.objects.create(
+                    user=user,
+                    score=score,
+                    total_questions=total_questions,
+                    quiz_category=category,
+                    date_taken=timezone.now()
+                )
 
-            leaderboard_entry, created = Leaderboard.objects.get_or_create(user=user)
-            leaderboard_entry.total_score = F('total_score') + score
-            leaderboard_entry.save()
-            """
-            all_leaderboard = Leaderboard.objects.order_by('-total_score')
-            for rank, entry in enumerate(all_leaderboard, start=1):
-                entry.rank = rank
-                entry.save()"""
+                leaderboard_entry, created = Leaderboard.objects.get_or_create(user=user)
+                leaderboard_entry.total_score = F('total_score') + score
+                leaderboard_entry.save()
 
             #return redirect(reverse("result_view") + f'?score={score}&category={category}')
-            return redirect('result_view', resuld_id=quiz_result.id)
+            return redirect('result_view', result_id=quiz_result.id)
     else:
         form = QuizForm(questions=questions)
 
@@ -130,22 +127,23 @@ def quiz_view(request, category):
 
 
 @login_required
-def result_view(request):
+def result_view(request, result_id):
     """Display the score to the user"""
-    score = request.GET.get('score')
-    category = request.GET.get('category')
     try:
-        score = int(score)
-    except (TypeError, ValueError):
-        score = 0
+        quiz_result = QuizResult.objects.get(id=result_id, user=request.user)
+    except QuizResult.DoesNotExist:
+        return redirect('quiz_home')  # Redirect if no result is found
 
     context = {
-        'score': score,
-        'category': category,
+        'score': quiz_result.score,
+        'category': quiz_result.quiz_category,
+        'total_questions': quiz_result.total_questions,
+        'date_taken': quiz_result.date_taken,
+        'quiz_result': quiz_result,    
     }
     
-
     return render(request, 'result.html', context)
+
 
 
 @login_required

@@ -119,7 +119,7 @@
         <button type="submit" class="btn btn-primary">log out</button>
 
         <!-- Quiz Form -->
-        <form method="post" action="{% url 'result' %}">
+        <form method="post" action="{% url 'quiz_view' category %}">
             {% csrf_token %}
             {% for question in questions %}
             <div class="question-block">
@@ -165,7 +165,7 @@
 
             // Progress Bar
             const progressBarFill = document.getElementById('progress-bar-fill');
-            const questionsCount = parseInt('{{ questions|length }}', 10);
+            const questionsCount = parseInt('{{ questions|length}}', 10);
             let currentQuestionIndex = 0; // Initialize to the first question
 
             // Function to update progress bar
@@ -190,9 +190,17 @@
                     const questionIndex = Array.from(document.querySelectorAll('.question-block')).indexOf(questionBlock);
                     currentQuestionIndex = questionIndex;
                     updateProgressBar();
-                });
+
+                    // **Auto-submit after the last question**
+            if (currentQuestionIndex + 1 === questionsCount) {  // Check if it's the last question
+                setTimeout(() => {
+                    document.forms[0].submit();  // Auto-submit the form
+                }, 500);  // Slight delay to allow the last selection to be visible
+                }
             });
         });
+        updateProgressBar();
+    });
     </script>
 </body>
 </html>
