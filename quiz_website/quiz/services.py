@@ -1,7 +1,17 @@
 """module to handle third party API requests"""
 import requests
 import requests.exceptions
+import random;
 
+def process_request(request):
+    """
+    Process payloads from the Quiz API
+    """
+    processed = []
+    for payload in request:
+        payload["answers"] = random.sample(payload["incorrect_answers"]+[payload["correct_answer"]],4)
+        processed.append(payload)
+    return processed
 
 def get_questions(category=None, difficulty=None, num_questions=10):
     """
@@ -26,7 +36,8 @@ def get_questions(category=None, difficulty=None, num_questions=10):
 
         # Check if we have valid results
         if data['response_code'] == 0:  # 0 means success
-            return data['results']
+            # print(data['results'])
+            return process_request(data['results'])
         else:
             return []
 

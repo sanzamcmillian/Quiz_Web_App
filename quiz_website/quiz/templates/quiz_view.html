@@ -130,7 +130,7 @@
             <div class="question-block">
                 <h3 class="question">{{ question.question|safe }}</h3>
                 <ul class="options">
-                    {% for answer in question.incorrect_answers %}
+                    {% for answer in question.answers %}
                     <li>
                         <label class="option-label" for="question_{{ forloop.parentloop.counter }}_option_{{ forloop.counter }}">
                             <input type="radio" id="question_{{ forloop.parentloop.counter}}_option_{{ forloop.counter}}" name="question_{{ forloop.parentloop.counter }}" value="{{ answer }}" class="option-input">
@@ -138,12 +138,6 @@
                         </label>
                     </li>
                     {% endfor %}
-                    <li>
-                        <label class="option-label">
-                            <input type="radio" name="question_{{ forloop.parentloop.counter }}" value="{{ question.correct_answer }}" class="option-input">
-                            {{ question.correct_answer|safe }}
-                        </label>
-                    </li>
                 </ul>
             </div>
             {% endfor %}
