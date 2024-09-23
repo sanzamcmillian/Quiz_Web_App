@@ -1,17 +1,129 @@
-<!-- templates/leaderboard_view.html -->
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
-    <link rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        main {
+            width: 90%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2980b9;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        td {
+            font-size: 1.1rem;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #ecf0f1;
+        }
+
+        tbody tr:hover {
+            background-color: #d6eaf8;
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #3498db;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #95a5a6;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                width: 100%;
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            a {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <header>
         <h1>Leaderboard</h1>
     </header>
-    
+
     <main>
         <table>
             <thead>
@@ -23,27 +135,23 @@
             </thead>
             <tbody>
                 {% for entry in leaderboard %}
-                    <tr>
-                        <td>{{ entry.rank }}</td>
-                        <td>{{ entry.user.username }}</td>
-                        <td>{{ entry.total_score }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ entry.rank }}</td>
+                    <td>{{ entry.user.username }}</td>
+                    <td>{{ entry.total_score }}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
-        
+
         <section>
             <a href="{% url 'quiz_detail' %}">Back to Home</a>
         </section>
     </main>
-    {% if user.is_authenticated %}
-        <a href="{% url 'logout' %}">
-            <button type="button" class="btn btn-primary">Log Out</button>
-        </a>
-    {% endif %}
-    
+
     <footer>
         <p>&copy; 2024 Quiz Web App. All rights reserved.</p>
     </footer>
 </body>
+
 </html>
