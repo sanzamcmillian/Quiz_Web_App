@@ -67,13 +67,15 @@ def login_view(request):
 
 
 def logout_view(request):
-    """Handle user logout."""
+    """Handle user logout.
     request.user.auth_token.delete()
     logout(request)
     return Response(
         {'message': 'Logged out successfully'},
         status=status.HTTP_200_OK
-        )
+        )"""
+    logout(request)
+    return redirect('home')
 
 
 @login_required
@@ -89,7 +91,7 @@ def quiz_view(request, category):
             user = request.user
 
             with transaction.atomic():
-                for idx, question in enumerate(questions):
+                for idx, question in enumerate(questions, start=1):
                     selected_option = form.cleaned_data.get(f'question_{idx}')
                     correct_option = question['correct_answer']
                     is_correct = selected_option == correct_option

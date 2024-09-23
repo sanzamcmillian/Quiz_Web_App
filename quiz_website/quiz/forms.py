@@ -16,7 +16,7 @@ class QuizForm(forms.Form):
         questions = kwargs.pop('questions', [])
         super(QuizForm, self).__init__(*args, **kwargs)
 
-        for i, question in enumerate(questions):
+        for i, question in enumerate(questions, start=1):
             field_name = f'question_{i}'
             self.fields[field_name] = forms.ChoiceField(
                 label=question['question'],

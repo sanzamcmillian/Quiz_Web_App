@@ -24,6 +24,11 @@
             <a href="{% url 'result_view' result_id=quiz_result.id %}">View Detailed Results</a>
         </section>
     </main>
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">
+            <button type="button" class="btn btn-primary">Log Out</button>
+        </a>
+    {% endif %}
     
     <footer>
         <p>&copy; 2024 Quiz Web App. All rights reserved.</p>
