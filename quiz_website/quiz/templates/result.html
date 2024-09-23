@@ -133,12 +133,19 @@
         <section>
             <h2>{{ quiz_result.quiz_category }}</h2>
             <p><strong>Score:</strong> {{ quiz_result.score }} / {{ quiz_result.total_questions }}</p>
-            <p><strong>Percentage:</strong> {{ percentage }}%</p>
+            <p><strong>Percentage:</strong> {{ quiz_result.percentage }}%</p>
             <p><strong>Date Taken:</strong> {{ quiz_result.date_taken }}</p>
+        </section>
+        <section>
+            <a href="{% url 'quiz_detail' %}">Retry</a>
         </section>
 
         <section>
             <a href="{% url 'result_view' result_id=quiz_result.id %}">View Detailed Results</a>
+        </section>
+
+        <section>
+            <a href="{% url 'leaderboard_view' %}">View Leaderboard</a>
         </section>
 
         {% if user.is_authenticated %}

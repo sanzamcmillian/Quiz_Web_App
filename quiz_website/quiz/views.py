@@ -81,43 +81,45 @@ def logout_view(request):
 @login_required
 def quiz_view(request, category):
     """Fetch quiz questions from an external API and handle form submission"""
-    questions = get_questions(num_questions=5)
-
+    number_of_questions =5
     if request.method == 'POST':
-        form = QuizForm(request.POST, questions=questions)
-        if form.is_valid():
-            score = form.calculate_score()
-            total_questions = len(questions)
-            user = request.user
+        submmited_data = request.POST
+        with transaction.atomic():
+            correct_answer_count =0
+            for key, value in submmited_data.items():
+                if key.startswith('question_') and value.split(':')[0] == value.split(':')[1]:
+                    correct_answer_count +=1
 
-            with transaction.atomic():
-                for idx, question in enumerate(questions, start=1):
-                    selected_option = form.cleaned_data.get(f'question_{idx}')
-                    correct_option = question['correct_answer']
-                    is_correct = selected_option == correct_option
-                    UserResponse.objects.create(
-                        user=user,
-                        question_text=question['question'],
-                        selected_option=selected_option,
-                        correct_option=correct_option,
-                        is_correct=is_correct
-                    )
-            
-                quiz_result = QuizResult.objects.create(
-                    user=user,
-                    score=score,
-                    total_questions=total_questions,
-                    quiz_category=category,
-                    date_taken=timezone.now()
-                )
+            # for idx, question in enumerate(questions, start=1):
+            #     selected_option = form.cleaned_data.get(f'question_{idx}')
+            #     print(selected_option)
+            #     correct_option = question['correct_answer']
+            #     is_correct = selected_option == correct_option
+            #     UserResponse.objects.create(
+            #         user=user,
+            #         question_text=question['question'],
+            #         selected_option=selected_option,
+            #         correct_option=correct_option,
+            #         is_correct=is_correct
+            #     )
+        
+            quiz_result = QuizResult.objects.create(
+                user=request.user,
+                score=correct_answer_count,
+                total_questions=number_of_questions,
+                percentage=round((correct_answer_count/number_of_questions)*100),
+                quiz_category=category,
+                date_taken=timezone.now()
+            )
 
-                leaderboard_entry, created = Leaderboard.objects.get_or_create(user=user)
-                leaderboard_entry.total_score = F('total_score') + score
-                leaderboard_entry.save()
+            leaderboard_entry, created = Leaderboard.objects.get_or_create(user=request.user)
+            leaderboard_entry.total_score = F('total_score') + correct_answer_count
+            leaderboard_entry.save()
 
-            #return redirect(reverse("result_view") + f'?score={score}&category={category}')
-            return redirect('result_view', result_id=quiz_result.id)
+        #return redirect(reverse("result_view") + f'?score={score}&category={category}')
+        return redirect('result_view', result_id=quiz_result.id)
     else:
+        questions = get_questions(num_questions=number_of_questions)
         form = QuizForm(questions=questions)
 
     context = {
@@ -140,6 +142,7 @@ def result_view(request, result_id):
         'score': quiz_result.score,
         'category': quiz_result.quiz_category,
         'total_questions': quiz_result.total_questions,
+        'percentage':quiz_result.percentage,
         'date_taken': quiz_result.date_taken,
         'quiz_result': quiz_result,    
     }

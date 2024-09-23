@@ -36,7 +36,6 @@ def get_questions(category=None, difficulty=None, num_questions=10):
 
         # Check if we have valid results
         if data['response_code'] == 0:  # 0 means success
-            # print(data['results'])
             return process_request(data['results'])
         else:
             return []

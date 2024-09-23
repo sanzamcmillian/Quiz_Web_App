@@ -10,6 +10,7 @@ class QuizResult(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField(null=False, default=0)
     total_questions = models.IntegerField(null=False, default=0)
+    percentage = models.IntegerField(null=False, default=0)
     quiz_category = models.CharField(max_length=100, null=False, default="")
     date_taken = models.DateTimeField(default=datetime.now, blank=True)
 
