@@ -132,8 +132,8 @@
                 <ul class="options">
                     {% for answer in question.incorrect_answers %}
                     <li>
-                        <label class="option-label">
-                            <input type="radio" name="question_{{ forloop.parentloop.counter }}" value="{{ answer }}" class="option-input">
+                        <label class="option-label" for="question_{{ forloop.parentloop.counter }}_option_{{ forloop.counter }}">
+                            <input type="radio" id="question_{{ forloop.parentloop.counter}}_option_{{ forloop.counter}}" name="question_{{ forloop.parentloop.counter }}" value="{{ answer }}" class="option-input">
                             {{ answer|safe }}
                         </label>
                     </li>
