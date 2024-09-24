@@ -8,41 +8,106 @@
     <!-- Load static template tag -->
     {% load static %}
     
-    <!-- Bootstrap CDN -->
+    <!-- Bootstrap 4.5.2 CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Optionally: Bootswatch theme for a colorful appearance -->
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Tailwind (if needed) -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-    <!-- Your custom CSS -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'quiz_style.css' %}">
+    
+    <!-- Additional Inline Styling for Modern Design -->
+    <style>
+        body {
+            background-color: #f0f2f5; /* Lighter, neutral background */
+        }
+
+        /* Card Styles */
+        .card {
+            border-radius: 12px; /* Softer corners for a modern look */
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        /* Input Field Styles */
+        .form-control {
+            border: 1px solid #ced4da; /* Light border for a clean look */
+            border-radius: 8px; /* Smooth, rounded corners */
+            padding: 12px; /* Increased padding for more spacious fields */
+            font-size: 16px;
+        }
+
+        /* Input Focus Effect */
+        .form-control:focus {
+            border-color: #007bff; /* Primary color border on focus */
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Light glow for focus */
+            outline: none; /* Remove default focus outline */
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #007bff;
+            border-radius: 8px; /* Rounded corners on button */
+            padding: 10px 0;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2); /* Button shadow effect */
+        }
+
+        /* Additional Text Styling */
+        .text-center p {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #6c757d; /* Subtle text color */
+        }
+
+        .text-center a {
+            color: #007bff;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 576px) {
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
             <h2 class="card-title text-center mb-4">Login</h2>
-            <form method="POST">
+            <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
                 
-                <!-- Render the form with Bootstrap styling -->
-                <div class="form-group">
+                <!-- Username Field -->
+                <div class="form-group mb-3">
                     {{ form.username.label_tag }}
                     {{ form.username }}
                     {{ form.username.errors }}
                 </div>
                 
-                <div class="form-group">
+                <!-- Password Field -->
+                <div class="form-group mb-3">
                     {{ form.password.label_tag }}
                     {{ form.password }}
                     {{ form.password.errors }}
                 </div>
                 
+                <!-- Login Button -->
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
             
+            <!-- Register Link -->
             <div class="text-center mt-3">
                 <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
             </div>
