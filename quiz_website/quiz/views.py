@@ -81,27 +81,25 @@ def logout_view(request):
 @login_required
 def quiz_view(request, category):
     """Fetch quiz questions from an external API and handle form submission"""
-    number_of_questions =5
+    number_of_questions = 5
     if request.method == 'POST':
         submmited_data = request.POST
         with transaction.atomic():
             correct_answer_count =0
             for key, value in submmited_data.items():
-                if key.startswith('question_') and value.split(':')[0] == value.split(':')[1]:
-                    correct_answer_count +=1
+                if key.startswith('question_'):
+                    question, selected_option, correct_option = value.split(':')
 
-            # for idx, question in enumerate(questions, start=1):
-            #     selected_option = form.cleaned_data.get(f'question_{idx}')
-            #     print(selected_option)
-            #     correct_option = question['correct_answer']
-            #     is_correct = selected_option == correct_option
-            #     UserResponse.objects.create(
-            #         user=user,
-            #         question_text=question['question'],
-            #         selected_option=selected_option,
-            #         correct_option=correct_option,
-            #         is_correct=is_correct
-            #     )
+                    if selected_option == correct_option:
+                        correct_answer_count +=1
+                    
+                    UserResponse.objects.create(
+                        user=request.user,
+                        question_text=question,
+                        selected_option=selected_option,
+                        correct_option=correct_option,
+                        is_correct=selected_option==correct_option
+                    )
         
             quiz_result = QuizResult.objects.create(
                 user=request.user,

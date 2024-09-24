@@ -133,7 +133,7 @@
                     {% for answer in question.answers %}
                     <li>
                         <label class="option-label" for="question_{{ forloop.parentloop.counter }}_option_{{ forloop.counter }}">
-                            <input type="radio" id="question_{{ forloop.parentloop.counter}}_option_{{ forloop.counter}}" name="question_{{ forloop.parentloop.counter }}" value="{{ answer}}:{{ question.correct_answer }}" class="option-input">
+                            <input type="radio" id="question_{{ forloop.parentloop.counter}}_option_{{ forloop.counter}}" name="question_{{ forloop.parentloop.counter }}" value="{{ question.question}}:{{ answer}}:{{ question.correct_answer }}" class="option-input">
                             {{ answer|safe }}
                         </label>
                     </li>
