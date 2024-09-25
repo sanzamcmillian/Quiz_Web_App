@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed Results</title>
+    <!-- Bootstrap for styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+
+        .results-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-title {
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4caf50;
+        }
+
+        .question-block {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+        }
+
+        .question-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .answer {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .user-answer {
+            font-weight: bold;
+            color: #ff5722;
+        }
+
+        .correct-answer {
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        .answer-status {
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: bold;
+            padding: 5px 10px;
+            display: inline-block;
+            border-radius: 5px;
+        }
+
+        .correct {
+            background-color: #d1e7dd;
+            color: #0f6c4c;
+        }
+
+        .incorrect {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        .score-summary {
+            text-align: center;
+            font-size: 22px;
+            margin: 20px 0;
+            color: #4caf50;
+        }
+
+        .home-btn, .retry-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .home-btn:hover, .retry-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <h2 class="results-title">Detailed Quiz Results</h2>
+
+        <!-- Score Summary -->
+        <div class="score-summary">
+            You scored: <strong>{{ user_score }}/{{ total_questions }}</strong>
+        </div>
+
+        <!-- Loop through each question to display details -->
+        {% for response in responses %}
+        <div class="question-block">
+            <h3 class="question-title">Question {{ forloop.counter }}: {{ response.question_text|safe }}</h3>
+
+            <p class="answer">Your Answer: <span class="user-answer">{{ response.user_answer|safe }}</span></p>
+            <p class="answer">Correct Answer: <span class="correct-answer">{{ response.correct_answer|safe }}</span></p>
+
+            <!-- Show if the answer was correct or incorrect -->
+            {% if response.is_correct %}
+            <span class="answer-status correct">Correct</span>
+            {% else %}
+            <span class="answer-status incorrect">Incorrect</span>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <!-- Buttons for retry and going back to home -->
+        <a href="{% url 'quiz_detail' %}" class="retry-btn">Try Again</a>
+        <a href="{% url 'home' %}" class="home-btn">Log Out</a>
+    </div>
+
+    <!-- Bootstrap JS for interactions -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
